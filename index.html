@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 p-10 text-gray-800">
+
+  <h1 class="text-3xl text-black text-cyan-400 font-bold mb-2">Dashboard</h1>
+  <p class="mb-6 text-bold text-gray-500">Bienvenido de nuevo, admin.</p>
+
+  <!-- Métricas -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white p-4 rounded-xl shadow">
+      <p class="text-sm text-gray-500">Usuarios Totales</p>
+      <div class="flex justify-between items-center mt-2">
+        <h2 class="text-2xl font-bold">8,249</h2>
+        <span class="text-green-600 bg-green-100 text-sm px-2 py-1 rounded-full">+12%</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">Aumentó 1,093 esta semana</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow">
+      <p class="text-sm text-gray-500">Ingresos</p>
+      <div class="flex justify-between items-center mt-2">
+        <h2 class="text-2xl font-bold">$24,780</h2>
+        <span class="text-green-600 bg-green-100 text-sm px-2 py-1 rounded-full">+8%</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">$2,567 más que el mes pasado</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow">
+      <p class="text-sm text-gray-500">Sesiones Activas</p>
+      <div class="flex justify-between items-center mt-2">
+        <h2 class="text-2xl font-bold">1,342</h2>
+        <span class="text-red-600 bg-red-100 text-sm px-2 py-1 rounded-full">-3%</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">42 menos que ayer</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow">
+      <p class="text-sm text-gray-500">Tasa de Conversión</p>
+      <div class="flex justify-between items-center mt-2">
+        <h2 class="text-2xl font-bold">24.8%</h2>
+        <span class="text-green-600 bg-green-100 text-sm px-2 py-1 rounded-full">+5%</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">1.2% más que el promedio</p>
+    </div>
+  </div>
+
+  <!-- Gráficas -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white p-4 rounded-xl shadow">
+      <h3 class="text-lg font-semibold mb-2">Crecimiento de Usuarios</h3>
+      <div class="h-72">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow">
+      <h3 class="text-lg font-semibold mb-2">Ingresos Mensuales</h3>
+      <div class="h-72">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts de las gráficas -->
+  <script>
+    // Gráfica de línea
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        datasets: [{
+          label: 'Usuarios 2024',
+          data: [5000, 5500, 6000, 6200, 6800, 7200, 7500, 8000, 8249, 8500, 8800, 9100],
+          borderColor: 'rgb(59, 130, 246)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          tension: 0.3,
+          fill: true
+        }, {
+          label: 'Usuarios 2023',
+          data: [4000, 4200, 4500, 4800, 5100, 5400, 5600, 5900, 6200, 6500, 6800, 7000],
+          borderColor: 'rgb(107, 114, 128)',
+          backgroundColor: 'rgba(107, 114, 128, 0.1)',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Gráfica de barras
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        datasets: [{
+          label: 'Ingresos 2024 ($)',
+          data: [15000, 16500, 18000, 19500, 21000, 22500, 23000, 24000, 24780, 26000, 27500, 29000],
+          backgroundColor: 'rgba(59, 130, 246, 0.8)'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
